@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOPE - Save Money by Saying No</title>
+    <link rel="icon" type="image/png" href="assets/nope-icon-rounded.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: #000000;
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.75rem;
+        font-weight: 900;
+        color: #c4ff0d;
+        letter-spacing: 0.02em;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .language-picker {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffffff;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 0.5rem 0.875rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .language-picker:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .language-picker svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .language-dropdown {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 0.5rem 0;
+        min-width: 120px;
+        display: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      }
+
+      .language-picker.active .language-dropdown {
+        display: block;
+      }
+
+      .language-option {
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        color: #999999;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .language-option:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #ffffff;
+      }
+
+      .language-option.selected {
+        color: #ffffff;
+        font-weight: 600;
+      }
+
+      .cta-button {
+        background: #ffffff;
+        color: #000000;
+        padding: 0.75rem 1.75rem;
+        border-radius: 24px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+        display: inline-block;
+      }
+
+      .cta-button:hover {
+        background: #f0f0f0;
+        transform: translateY(-1px);
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+      }
+
+      .hero {
+        max-width: 600px;
+        text-align: left;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 900;
+        line-height: 1.15;
+        margin-bottom: 1.5rem;
+        color: #ffffff;
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 1.5vw, 1.125rem);
+        font-weight: 400;
+        color: #a0a0a0;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+        margin-bottom: 2.5rem;
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-align: left;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background 0.2s ease;
+      }
+
+      .feature:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .feature:nth-child(1) {
+        border-top-left-radius: 12px;
+      }
+
+      .feature:nth-child(2) {
+        border-top-right-radius: 12px;
+      }
+
+      .feature:nth-child(3) {
+        border-bottom-left-radius: 12px;
+      }
+
+      .feature:nth-child(4) {
+        border-bottom-right-radius: 12px;
+      }
+
+      .feature-icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .feature-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .feature:nth-child(1) .feature-icon {
+        color: #ff6b00;
+      }
+
+      .feature:nth-child(2) .feature-icon {
+        color: #ffffff;
+      }
+
+      .feature:nth-child(3) .feature-icon {
+        color: #ffd700;
+      }
+
+      .feature:nth-child(4) .feature-icon {
+        color: #4a90e2;
+      }
+
+      .feature-text {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #ffffff;
+        line-height: 1.4;
+      }
+
+      .app-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .app-button {
+        background: #ffffff;
+        color: #000000;
+        padding: 0.875rem 1.5rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .app-button:hover {
+        background: #f0f0f0;
+        transform: translateY(-2px);
+      }
+
+      .app-button svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .phone-mockups {
+        position: absolute;
+        right: -150px;
+        top: 50%;
+        transform: translateY(-50%);
+        flex-shrink: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 800px;
+        height: auto;
+      }
+
+      .phone-screenshot {
+        position: relative;
+        width: auto;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow:
+          0 0 20px rgba(255, 255, 255, 0.08),
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 40px 100px rgba(0, 0, 0, 0.4);
+      }
+
+      .phone-screenshot:nth-child(1) {
+        max-height: 45vh;
+        z-index: 1;
+        opacity: 0.75;
+        margin-right: -80px;
+        margin-bottom: 70px;
+        transform: perspective(1000px) rotateY(8deg);
+      }
+
+      .phone-screenshot:nth-child(2) {
+        max-height: 61vh;
+        z-index: 3;
+        box-shadow:
+          0 0 30px rgba(255, 255, 255, 0.12),
+          0 30px 80px rgba(0, 0, 0, 0.6),
+          0 50px 120px rgba(0, 0, 0, 0.5);
+      }
+
+      .phone-screenshot:nth-child(3) {
+        max-height: 45vh;
+        z-index: 2;
+        opacity: 0.8;
+        margin-left: -80px;
+        margin-bottom: 70px;
+        transform: perspective(1000px) rotateY(-8deg);
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 1rem 1.5rem;
+        }
+
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .header-right {
+          gap: 1rem;
+        }
+
+        .cta-button {
+          padding: 0.6rem 1.25rem;
+          font-size: 0.8rem;
+        }
+
+        main {
+          flex-direction: column;
+          padding: 2rem;
+          text-align: center;
+          gap: 2rem;
+        }
+
+        .hero {
+          text-align: center;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .app-buttons {
+          justify-content: center;
+        }
+
+        .features {
+          margin-bottom: 2rem;
+        }
+
+        .phone-mockups {
+          position: relative;
+          right: auto;
+          top: auto;
+          transform: none;
+          margin: 0 auto;
+        }
+
+        .phone-screenshot {
+          max-height: 50vh;
+        }
+
+        .app-button img {
+          height: 44px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        main {
+          padding: 1rem;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .app-buttons {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+      }
+
+      @media (max-width: 1200px) {
+        main {
+          flex-direction: column;
+          gap: 2rem;
+          padding-top: 6rem;
+        }
+
+        .hero {
+          text-align: center;
+        }
+
+        .app-buttons {
+          justify-content: center;
+        }
+
+        .features {
+          margin-bottom: 2rem;
+        }
+
+        .phone-mockups {
+          position: relative;
+          right: auto;
+          top: auto;
+          transform: none;
+          margin: 0 auto;
+        }
+
+        .phone-screenshot {
+          max-height: 50vh;
+        }
+      }
+
+      @media (max-height: 700px) {
+        .phone-mockups {
+          display: none;
+        }
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        color: #666666;
+        z-index: 10;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        color: #666666;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links a:hover {
+        color: #ffffff;
+      }
+
+      @media (max-width: 768px) {
+        footer {
+          padding: 1rem 1.5rem;
+          font-size: 0.75rem;
+        }
+
+        .footer-links {
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        footer {
+          flex-direction: column;
+          gap: 0.75rem;
+          text-align: center;
+        }
+
+        .footer-links {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">NOPE.</div>
+      <div class="header-right">
+        <div class="language-picker" id="languagePicker">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path
+              d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+            ></path>
+          </svg>
+          <span id="currentLang">EN</span>
+          <svg
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            style="width: 12px; height: 12px"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <div class="language-dropdown">
+            <div class="language-option selected" data-lang="EN">EN</div>
+            <div class="language-option" data-lang="ES">ES</div>
+            <div class="language-option" data-lang="PT">PT</div>
+            <div class="language-option" data-lang="UA">UA</div>
+          </div>
+        </div>
+        <a href="https://apps.apple.com/app/nope" class="cta-button"
+          >Give it a try</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <h1>Turn impulse spending into savings.</h1>
+        <p>
+          Every time you say NOPE to a mindless purchase, you win back your
+          cash. Gamified goals, streaks, and rewards keep you on track.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+            </div>
+            <div class="feature-text">Create Savings Goals</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polygon
+                  points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                ></polygon>
+              </svg>
+            </div>
+            <div class="feature-text">Boost Your Progress</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path
+                  d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"
+                ></path>
+                <path
+                  d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"
+                ></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+            </div>
+            <div class="feature-text">Unlock 40+ achievements</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="20" x2="12" y2="10"></line>
+                <line x1="18" y1="20" x2="18" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="16"></line>
+              </svg>
+            </div>
+            <div class="feature-text">Track Your Activity</div>
+          </div>
+        </div>
+
+        <div class="app-buttons">
+          <a
+            href="https://apps.apple.com/app/nope"
+            class="app-button"
+            aria-label="Download on the App Store"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.09997 22C7.78997 22.05 6.79997 20.68 5.95997 19.47C4.24997 17 2.93997 12.45 4.69997 9.39C5.56997 7.87 7.12997 6.91 8.81997 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"
+              />
+            </svg>
+            Download on the App Store
+          </a>
+        </div>
+      </div>
+
+      <div class="phone-mockups">
+        <img
+          src="assets/phone-1.png"
+          alt="NOPE App - Achievements"
+          class="phone-screenshot"
+        />
+        <img
+          src="assets/phone-2.png"
+          alt="NOPE App - Goals"
+          class="phone-screenshot"
+        />
+        <img
+          src="assets/phone-3.png"
+          alt="NOPE App - Activity"
+          class="phone-screenshot"
+        />
+      </div>
+    </main>
+
+    <footer>
+      <div class="copyright">© 2026 NOPE. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="pages/privacy.html">Privacy Policy</a>
+        <a href="pages/terms.html">Terms of Service</a>
+      </div>
+    </footer>
+
+    <script>
+      // Locale configuration
+      const locales = {
+        EN: {
+          title: "Turn impulse spending into savings.",
+          description:
+            "Every time you say NOPE to a mindless purchase, you win back your cash. Gamified goals, streaks, and rewards keep you on track.",
+          features: {
+            goals: "Create Savings Goals",
+            progress: "Boost Your Progress",
+            achievements: "Unlock 40+ achievements",
+            activity: "Track Your Activity",
+          },
+          cta: "Give it a try",
+          appStore: " Download on the App Store",
+          footer: {
+            copyright: "© 2026 NOPE. All rights reserved.",
+            privacy: "Privacy Policy",
+            terms: "Terms of Service",
+          },
+          images: {
+            phone1: "assets/phone-1.png",
+            phone2: "assets/phone-2.png",
+            phone3: "assets/phone-3.png",
+          },
+        },
+        ES: {
+          title: "Convierte el gasto impulsivo en ahorros.",
+          description:
+            "Cada vez que dices NOPE a una compra sin sentido, recuperas tu dinero. Objetivos gamificados, rachas y recompensas te mantienen en el camino.",
+          features: {
+            goals: "Crear Objetivos de Ahorro",
+            progress: "Impulsa Tu Progreso",
+            achievements: "Desbloquea más de 40 logros",
+            activity: "Rastrea Tu Actividad",
+          },
+          cta: "Pruébalo",
+          appStore: " Descargar en App Store",
+          footer: {
+            copyright: "© 2026 NOPE. Todos los derechos reservados.",
+            privacy: "Política de Privacidad",
+            terms: "Términos de Servicio",
+          },
+          images: {
+            phone1: "assets/phone-1-es.png",
+            phone2: "assets/phone-2-es.png",
+            phone3: "assets/phone-3-es.png",
+          },
+        },
+        PT: {
+          title: "Transforme gastos impulsivos em economia.",
+          description:
+            "Toda vez que você diz NOPE para uma compra impensada, você recupera seu dinheiro. Metas gamificadas, sequências e recompensas mantêm você no caminho certo.",
+          features: {
+            goals: "Criar Metas de Economia",
+            progress: "Impulsione Seu Progresso",
+            achievements: "Desbloqueie mais de 40 conquistas",
+            activity: "Acompanhe Sua Atividade",
+          },
+          cta: "Experimente",
+          appStore: " Baixar na App Store",
+          footer: {
+            copyright: "© 2026 NOPE. Todos os direitos reservados.",
+            privacy: "Política de Privacidade",
+            terms: "Termos de Serviço",
+          },
+          images: {
+            phone1: "assets/phone-1-pt.png",
+            phone2: "assets/phone-2-pt.png",
+            phone3: "assets/phone-3-pt.png",
+          },
+        },
+        UA: {
+          title: "Перетворіть імпульсивні витрати на заощадження.",
+          description:
+            "Кожного разу, коли ви кажете NOPE імпульсивним покупкам, ви повертаєте свої гроші. Ігрові цілі, серії та нагороди тримають вас на шляху.",
+          features: {
+            goals: "Створюйте цілі заощаджень",
+            progress: "Прискорюйте свій прогрес",
+            achievements: "Розблокувуйте 40+ досягнень",
+            activity: "Відстежуйте свою активність",
+          },
+          cta: "Спробувати",
+          appStore: " Завантажити в App Store",
+          footer: {
+            copyright: "© 2026 NOPE. Всі права захищені.",
+            privacy: "Політика Конфіденційності",
+            terms: "Умови Використання",
+          },
+          images: {
+            phone1: "assets/phone-1-ua.png",
+            phone2: "assets/phone-2-ua.png",
+            phone3: "assets/phone-3-ua.png",
+          },
+        },
+      };
+
+      // Get saved locale or default to EN
+      let currentLocale = localStorage.getItem("nope-locale") || "EN";
+
+      // Update content based on locale
+      function updateContent(locale) {
+        const content = locales[locale];
+
+        // Update hero text
+        document.querySelector(".hero h1").textContent = content.title;
+        document.querySelector(".hero p").textContent = content.description;
+
+        // Update features
+        document.querySelectorAll(".feature-text")[0].textContent =
+          content.features.goals;
+        document.querySelectorAll(".feature-text")[1].textContent =
+          content.features.progress;
+        document.querySelectorAll(".feature-text")[2].textContent =
+          content.features.achievements;
+        document.querySelectorAll(".feature-text")[3].textContent =
+          content.features.activity;
+
+        // Update buttons
+        document.querySelector("header .cta-button").textContent = content.cta;
+
+        // Update app button (preserve SVG icon)
+        const appButton = document.querySelector(".app-button");
+        const svg = appButton.querySelector("svg");
+        appButton.textContent = content.appStore;
+        if (svg) {
+          appButton.insertBefore(svg, appButton.firstChild);
+        }
+
+        // Update footer
+        document.querySelector(".copyright").textContent =
+          content.footer.copyright;
+        document.querySelectorAll(".footer-links a")[0].textContent =
+          content.footer.privacy;
+        document.querySelectorAll(".footer-links a")[1].textContent =
+          content.footer.terms;
+
+        // Update images
+        document.querySelectorAll(".phone-screenshot")[0].src =
+          content.images.phone1;
+        document.querySelectorAll(".phone-screenshot")[1].src =
+          content.images.phone2;
+        document.querySelectorAll(".phone-screenshot")[2].src =
+          content.images.phone3;
+
+        // Save locale
+        localStorage.setItem("nope-locale", locale);
+        currentLocale = locale;
+      }
+
+      // Language picker functionality
+      const languagePicker = document.getElementById("languagePicker");
+      const currentLang = document.getElementById("currentLang");
+      const languageOptions = document.querySelectorAll(".language-option");
+
+      // Initialize with saved locale
+      currentLang.textContent = currentLocale;
+      languageOptions.forEach((opt) => {
+        opt.classList.toggle("selected", opt.dataset.lang === currentLocale);
+      });
+      updateContent(currentLocale);
+
+      languagePicker.addEventListener("click", (e) => {
+        e.stopPropagation();
+        languagePicker.classList.toggle("active");
+      });
+
+      languageOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const lang = option.dataset.lang;
+          currentLang.textContent = lang;
+
+          languageOptions.forEach((opt) => opt.classList.remove("selected"));
+          option.classList.add("selected");
+
+          languagePicker.classList.remove("active");
+
+          // Update content with new locale
+          updateContent(lang);
+        });
+      });
+
+      document.addEventListener("click", () => {
+        languagePicker.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
