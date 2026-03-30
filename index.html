@@ -433,40 +433,6 @@
         display: none;
       }
 
-      .phone-screenshot {
-        width: auto;
-        border-radius: 50px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow:
-          0 30px 80px rgba(0, 0, 0, 0.6),
-          0 50px 120px rgba(0, 0, 0, 0.5);
-        display: block;
-        max-width: 100%;
-        image-rendering: -webkit-optimize-contrast;
-        backface-visibility: hidden;
-        transform: translateZ(0);
-      }
-
-      .phone-screenshot:nth-child(1) {
-        max-height: 50vh;
-      }
-
-      .phone-screenshot:nth-child(2) {
-        max-height: 60vh;
-        transform: translateY(-20px);
-        border-radius: 65px;
-      }
-
-      .phone-screenshot:nth-child(3) {
-        max-height: 50vh;
-        transform: translateY(-55px);
-      }
-
-      .phone-screenshot:nth-child(1),
-      .phone-screenshot:nth-child(3) {
-        display: block;
-      }
-
       .phone-mockups-mobile {
         display: none;
       }
@@ -512,7 +478,7 @@
           align-items: center;
           justify-content: flex-start;
           min-height: calc(100vh - 100px);
-          padding-bottom: 450px;
+          padding-bottom: 320px;
         }
 
         .hero {
@@ -559,10 +525,11 @@
         .goal-cards-container {
           position: relative;
           width: 100%;
-          height: 500px;
+          height: 400px;
           display: flex;
           justify-content: center;
           align-items: flex-end;
+          padding-bottom: 20px;
         }
 
         .goal-card {
@@ -584,7 +551,7 @@
 
         .goal-card[data-card="1"] {
           left: 10%;
-          bottom: 50px;
+          bottom: 20px;
           transform: rotate(-8deg);
           z-index: 3;
         }
@@ -592,13 +559,13 @@
         .goal-card[data-card="2"] {
           left: 50%;
           transform: translateX(-50%) rotate(3deg);
-          bottom: 20px;
+          bottom: 0;
           z-index: 2;
         }
 
         .goal-card[data-card="3"] {
           right: 10%;
-          bottom: 40px;
+          bottom: 15px;
           transform: rotate(6deg);
           z-index: 1;
         }
@@ -843,14 +810,14 @@
 
         .goal-card[data-card="1"] {
           left: 20%;
-          bottom: 50px;
+          bottom: 20px;
           transform: rotate(-7deg);
         }
 
         .goal-card[data-card="2"] {
           right: 20%;
           left: auto;
-          bottom: 30px;
+          bottom: 10px;
           transform: rotate(8deg);
         }
       }
@@ -869,7 +836,7 @@
         .goal-card[data-card="1"] {
           left: 50%;
           transform: translateX(-50%) rotate(-5deg);
-          bottom: 30px;
+          bottom: 10px;
         }
       }
 
@@ -902,7 +869,7 @@
         }
 
         .goal-card[data-card="1"] {
-          bottom: 20px;
+          bottom: 10px;
         }
       }
 
@@ -1031,24 +998,6 @@
       </div>
     </main>
 
-    <div class="phone-mockups">
-      <img
-        src="assets/phone-1.svg"
-        alt="NOPE App - Achievements"
-        class="phone-screenshot"
-      />
-      <img
-        src="assets/phone-2.svg"
-        alt="NOPE App - Goals"
-        class="phone-screenshot"
-      />
-      <img
-        src="assets/phone-3.svg"
-        alt="NOPE App - Activity"
-        class="phone-screenshot"
-      />
-    </div>
-
     <div class="phone-mockups-mobile">
       <div class="goal-cards-container">
         <!-- Goal Card 1 - Trip to Japan -->
@@ -1168,12 +1117,8 @@
             terms: "Terms of Service",
           },
           images: {
-            phone1: "assets/phone-1.svg",
-            phone2: "assets/phone-2.svg",
-            phone3: "assets/phone-3.svg",
             phoneLeft: "assets/phone-front-left-en.svg",
             phoneRight: "assets/phone-front-right-en.svg",
-            phoneMobile: "assets/phone-front-en.svg",
           },
           goals: [
             {
@@ -1214,12 +1159,8 @@
             terms: "Términos de Servicio",
           },
           images: {
-            phone1: "assets/phone-1-es.svg",
-            phone2: "assets/phone-2-es.svg",
-            phone3: "assets/phone-3-es.svg",
             phoneLeft: "assets/phone-front-left-es.svg",
             phoneRight: "assets/phone-front-right-es.svg",
-            phoneMobile: "assets/phone-front-es.svg",
           },
           goals: [
             {
@@ -1260,12 +1201,8 @@
             terms: "Termos de Serviço",
           },
           images: {
-            phone1: "assets/phone-1-pt.svg",
-            phone2: "assets/phone-2-pt.svg",
-            phone3: "assets/phone-3-pt.svg",
             phoneLeft: "assets/phone-front-left-pt.svg",
             phoneRight: "assets/phone-front-right-pt.svg",
-            phoneMobile: "assets/phone-front-pt.svg",
           },
           goals: [
             {
@@ -1306,12 +1243,8 @@
             terms: "Умови Використання",
           },
           images: {
-            phone1: "assets/phone-1-ua.svg",
-            phone2: "assets/phone-2-ua.svg",
-            phone3: "assets/phone-3-ua.svg",
             phoneLeft: "assets/phone-front-left-ua.svg",
             phoneRight: "assets/phone-front-right-ua.svg",
-            phoneMobile: "assets/phone-front-ua.svg",
           },
           goals: [
             {
@@ -1375,20 +1308,6 @@
         if (footerLinks.length > 0) {
           footerLinks[0].textContent = content.footer.privacy;
           footerLinks[1].textContent = content.footer.terms;
-        }
-
-        // Update images
-        document.querySelectorAll(".phone-screenshot")[0].src =
-          content.images.phone1;
-        document.querySelectorAll(".phone-screenshot")[1].src =
-          content.images.phone2;
-        document.querySelectorAll(".phone-screenshot")[2].src =
-          content.images.phone3;
-
-        // Update mobile mockup
-        const mobileMockup = document.getElementById("mobileMockup");
-        if (mobileMockup) {
-          mobileMockup.src = content.images.phoneMobile;
         }
 
         // Update desktop phone mockups
