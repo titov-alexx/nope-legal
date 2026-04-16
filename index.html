@@ -68,7 +68,7 @@
         background-image:
           linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
-        background-size: 56px 56px;
+        background-size: 100px 100px;
         opacity: 0.22;
       }
 
@@ -493,31 +493,26 @@
       }
 
       .final-cta {
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
         padding: 36px 0 14px;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        grid-template-areas: "title actions";
-        column-gap: 36px;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        text-align: left;
+        text-align: center;
       }
 
       .final-cta h2 {
-        grid-area: title;
         font-size: clamp(2rem, 3.3vw, 3rem);
         line-height: 1;
         margin-bottom: 0;
       }
 
       .final-cta .hero-actions {
-        grid-area: actions;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: center;
         justify-content: center;
         gap: 10px;
-        margin-top: 0;
+        margin-top: 28px;
         margin-bottom: 0;
       }
 
@@ -626,6 +621,10 @@
           font-size: clamp(2.8rem, 12vw, 4.5rem);
         }
 
+        .final-cta .hero-actions {
+          width: 100%;
+        }
+
         .simple-steps {
           grid-template-columns: 1fr;
           gap: 0;
@@ -634,20 +633,6 @@
         .simple-step {
           padding: 20px 0;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .final-cta {
-          grid-template-columns: 1fr;
-          grid-template-areas:
-            "title"
-            "actions";
-          justify-items: start;
-        }
-
-        .final-cta .hero-actions {
-          justify-content: flex-start;
-          align-items: flex-start;
-          width: 100%;
         }
       }
 
